@@ -57,25 +57,27 @@ class UserResource(Resource):
             return {'message': 'Invalid data'}, 400
     
     
-    def get(self,userid=None):
-        if not userid:
+    def get(self):
             users = list(collection.find({},{'_id':0}))
             return jsonify(users)
 
-        user = collection.find_one({'userid': userid}, {'_id': 0})
-        if user:
-            return user, 200
-        else:
-            return {"message": "User not found"}, 404
     
     def delete(self,userid):
         user = collection.find_one_and_delete({'userid':userid},{'_id':0})
         if user:
             return {"message":"{0}deleted".format(user)}
 
+class GetUserbyId(Resource):
+    def get(self,userid):
+        user = collection.find_one({'userid': userid}, {'_id': 0})
+        if user:
+            return user, 200
+        else:
+            return {"message": "User not found"}, 404
 
 
-api.add_resource(UserResource, '/users','/users/<string:userid>')
+api.add_resource(UserResource, '/users')
+api.add_resource(GetUserbyId,'/users/<string:userid>')
 
 
 if __name__ == '__main__':
