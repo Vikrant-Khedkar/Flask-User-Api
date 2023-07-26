@@ -7,7 +7,7 @@ import hashlib
 app = Flask(__name__)
 api = Api(app)
 
-MONGO_HOST = 'localhost'
+MONGO_HOST = 'my-mongo-container'
 MONGO_PORT = 27017
 MONGO_DB = 'user_db'
 MONGO_COLLECTION = 'users'
@@ -79,4 +79,4 @@ api.add_resource(UserResource, '/users','/users/<string:userid>')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
