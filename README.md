@@ -59,9 +59,6 @@ Clone the project
 
 Go to the project directory
 
-```bash
-  cd my-project
-```
 
 Build Docker image for app.py
 
